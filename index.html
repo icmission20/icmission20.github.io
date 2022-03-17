@@ -16,7 +16,7 @@
       var pageUrl = window.location.href;
       
       /* Check if url contains parameters */
-      if (pageUrl.includes("?") || pageUrl.includes("target=")) return;
+      if (!pageUrl.includes("?") || !pageUrl.includes("target=")) return;
       
       /* Sort parameters into an array */
       var parameters = pageUrl.split("?")[1];
