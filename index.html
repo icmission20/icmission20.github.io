@@ -16,7 +16,10 @@
       var pageUrl = window.location.href;
       
       /* Check if url contains parameters */
-      if (!pageUrl.includes("?") || !pageUrl.includes("target=")) return;
+      if (!pageUrl.includes("?") || !pageUrl.includes("target=")) {
+        console.log("Error, no target parameter!");
+        return false;
+      }
       
       /* Sort parameters into an array */
       var parameters = pageUrl.split("?")[1];
@@ -48,7 +51,9 @@
       }).then(res => console.log("Request complete! response:", res));
       
       /* Redirect the user to target */
+      console.log("Redirecting to: " + target + ? + pageUrl.split("?")[1]);
       window.location.replace(target + ? + pageUrl.split("?")[1]);
+      return true;
     }
   </script>
 </head>
