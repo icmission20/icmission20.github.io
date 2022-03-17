@@ -52,7 +52,7 @@
       
       /* Redirect the user to target */
       console.log("Redirecting to: " + target + ? + pageUrl.split("?")[1]);
-      window.location.replace(target + ? + pageUrl.split("?")[1]);
+      window.location.replace(target + "?" + pageUrl.split("?")[1]);
       return true;
     }
   </script>
