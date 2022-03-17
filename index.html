@@ -13,17 +13,16 @@
       var urlData = [];
       var payload = "";
       const postUrl = "https://script.google.com/macros/s/AKfycbw_lzooqAJ9AOGOyehZfPV2bVUYnW3sJz1HKxOJEYcFwMkt6Z3RZlSAoW9ul-NzHbbn/exec";
-      var pageUrl = window.location.href;
       
-      /* Check if url contains a target parameter */
-      if (pageUrl.includes("?") || pageUrl.includes("target=")) return;
+      /* Check if url contains parameters */
+      if (!window.location.href.includes("?")) return;
       
       /* Sort parameters into an array */
-      var parameters = pageUrl.split(/\?(.*)/)[1];
+      var parameters = window.location.href.split("?")[1];
       if (parameters.includes("&")) parameters = parameters.split("&");
       for (var i in parameters) {
         if (parameters[i].includes("=")) {
-          urlData.push([parameters[i].split(/[^=]*/), decodeURIComponent(parameters[i].match(/\=(.*)/)[1])]);
+          urlData.push([parameters[i].split("=")[0], decodeURIComponent(parameters[i].split("=")[1])]);
         } else {
           urlData.push([parameters[i], ""]);
         }
@@ -48,7 +47,7 @@
       }).then(res => console.log("Request complete! response:", res));
       
       /* Redirect the user to target */
-      window.location.replace(target + "?" + pageUrl.match(/\?(.*)/)[1]);
+      window.location.replace(target);
     }
   </script>
 </head>
