@@ -18,7 +18,7 @@
       /* Check if url contains parameters */
       if (!pageUrl.includes("?") || !pageUrl.includes("target=")) {
         console.log("Error, no target parameter!");
-        return false;
+        return;
       }
       
       /* Sort parameters into an array */
@@ -51,9 +51,8 @@
       }).then(res => console.log("Request complete! response:", res));
       
       /* Redirect the user to target */
-      console.log("Redirecting to: " + target + ? + pageUrl.split("?")[1]);
+      console.log("Redirecting to: " + target + "?" + pageUrl.substring(pageUrl.indexOf("?") + 1));
       window.location.replace(target + "?" + pageUrl.substring(pageUrl.indexOf("?") + 1));
-      return true;
     }
   </script>
 </head>
