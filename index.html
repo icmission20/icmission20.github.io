@@ -10,49 +10,27 @@
   </style>
   <script>
     function sendHit() {
-      var urlData = [];
-      var payload = "";
       const postUrl = "https://script.google.com/macros/s/AKfycbw_lzooqAJ9AOGOyehZfPV2bVUYnW3sJz1HKxOJEYcFwMkt6Z3RZlSAoW9ul-NzHbbn/exec";
-      var pageUrl = window.location.href;
+      const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
       
-      /* Check if url contains parameters */
-      if (!pageUrl.includes("?") || !pageUrl.includes("target=")) {
-        console.log("Error, no target parameter!");
+      /* Check if the redirect target is encoded in valid base64, and that the url is valid. */
+      if (urlParams.target !== undefined && base64regex.test(urlParams.target)) {
+        const target = urlParams.target;
+      } else {
         return;
       }
-      
-      /* Sort parameters into an array */
-      var parameters = pageUrl.substring(pageUrl.indexOf("?") + 1);
-      if (parameters.includes("&")) parameters = parameters.split("&");
-      for (var i in parameters) {
-        if (parameters[i].includes("=")) {
-          urlData.push([parameters[i].split("=")[0], decodeURIComponent(parameters[i].split("=")[1])]);
-        } else {
-          urlData.push([parameters[i], ""]);
-        }
-      }
-      
-      /* Generate Json string to send */
-      for (var i in urlData) {
-        if (urlData[i][0] === "target") {
-          urlData[i][1] = atob(urlData[i][1]);
-          var target = urlData[i][1];
-        }
-        if (i == 0) payload = payload.concat("{");
-        payload = payload.concat('"' + urlData[i][0] + '":"' + urlData[i][1] + '"');
-        if (i < (urlData.length - 1)) payload = payload.concat(",");
-        if (i == (urlData.length - 1)) payload = payload.concat("}");
-      }
-      
-      /* Make a POST request with JSON body */
+
+      /* Make a POST request with the URL parameters as the body */
       fetch(postUrl, {
         method: "POST", 
-        body: payload
+        body: JSON.stringify(urlParams)
       }).then(res => console.log("Request complete! response:", res));
       
       /* Redirect the user to target */
-      console.log("Redirecting to: " + target + "?" + pageUrl.substring(pageUrl.indexOf("?") + 1));
-      window.location.replace(target + "?" + pageUrl.substring(pageUrl.indexOf("?") + 1));
+      console.log("Redirecting to: " + target + queryString);
+      window.location.replace(target + queryString);
     }
   </script>
 </head>
