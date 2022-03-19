@@ -15,7 +15,7 @@
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       
-      /* Check if the redirect target is encoded in valid base64, and that the url is valid. */
+      /* Check if the redirect target exists, and is encoded in valid base64 */
       if (urlParams.target !== undefined && base64regex.test(urlParams.target)) {
         const target = urlParams.target;
       } else {
