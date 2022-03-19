@@ -24,7 +24,7 @@
       });
       var urlParams = JSON.parse(JSON.stringify(result));
       
-      if (urlParams.target !== undefined) {
+      if (urlParams.target !== undefined && base64regex.test(urlParams.target)) {
         /* Decode the base64 */
         urlParams.target = window.atob(urlParams.target);
 
