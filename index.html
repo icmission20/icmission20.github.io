@@ -23,6 +23,7 @@
           result[pair[0]] = decodeURIComponent(pair[1] || '');
       });
       var urlParams = JSON.parse(JSON.stringify(result));
+      var urlParams.plainTarget = window.atob(urlParams.target);
 
       /* Make a POST request with the URL parameters as the body */
       fetch(postUrl, {
@@ -32,7 +33,7 @@
       
       /* Redirect the user to target */
       console.log("Redirecting to: " + window.atob(urlParams.target) + queryString);
-      window.location.replace(window.atob(urlParams.target) + queryString);
+      window.location.replace(urlParams.plainTarget + queryString);
     }
   </script>
 </head>
