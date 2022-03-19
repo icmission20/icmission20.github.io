@@ -23,15 +23,6 @@
           result[pair[0]] = decodeURIComponent(pair[1] || '');
       });
       var urlParams = JSON.parse(JSON.stringify(result));
-      
-      console.log(urlParams.target);
-      
-      /* Check if the redirect target exists, and is encoded in valid base64 */
-      if (urlParams.target !== undefined && base64regex.test(urlParams.target)) {
-        const target = window.atob(urlParams.target);
-      } else {
-        return;
-      }
 
       /* Make a POST request with the URL parameters as the body */
       fetch(postUrl, {
@@ -41,7 +32,7 @@
       
       /* Redirect the user to target */
       console.log("Redirecting to: " + target + queryString);
-      window.location.replace(target + queryString);
+      window.location.replace(window.atob(urlParams.target) + queryString);
     }
   </script>
 </head>
