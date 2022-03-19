@@ -15,6 +15,7 @@
       const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
+      console.log(JSON.parse(urlParams));
       
       /* Check if the redirect target exists, and is encoded in valid base64 */
       if (urlParams.target !== undefined && base64regex.test(urlParams.target)) {
