@@ -14,8 +14,8 @@
       const postUrl = "https://script.google.com/macros/s/AKfycbw_lzooqAJ9AOGOyehZfPV2bVUYnW3sJz1HKxOJEYcFwMkt6Z3RZlSAoW9ul-NzHbbn/exec";
       const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
       const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      console.log(queryString);
+      const urlParams = new URLSearchParams(queryString.slice(1));
+      console.log(JSON.stringify(urlParams));
       
       /* Check if the redirect target exists, and is encoded in valid base64 */
       if (urlParams.target !== undefined && base64regex.test(urlParams.target)) {
