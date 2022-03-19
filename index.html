@@ -31,7 +31,7 @@
       }).then(res => console.log("Request complete! response:", res));
       
       /* Redirect the user to target */
-      console.log("Redirecting to: " + target + queryString);
+      console.log("Redirecting to: " + window.atob(urlParams.target) + queryString);
       window.location.replace(window.atob(urlParams.target) + queryString);
     }
   </script>
