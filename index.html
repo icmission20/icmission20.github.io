@@ -23,7 +23,7 @@
           result[pair[0]] = decodeURIComponent(pair[1] || '');
       });
       var urlParams = JSON.parse(JSON.stringify(result));
-      var urlParams.target = window.atob(urlParams.target);
+      urlParams.target = window.atob(urlParams.target);
 
       /* Make a POST request with the URL parameters as the body */
       fetch(postUrl, {
