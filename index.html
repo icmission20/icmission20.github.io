@@ -14,7 +14,7 @@
       const postUrl = "https://script.google.com/macros/s/AKfycbw_lzooqAJ9AOGOyehZfPV2bVUYnW3sJz1HKxOJEYcFwMkt6Z3RZlSAoW9ul-NzHbbn/exec";
       const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
       
-      /* Generate an object from the parameters */
+      /* Generate an object from the url parameters */
       var queryString = window.location.search;
       var pairs = queryString.slice(1).split('&');
       var result = {};
@@ -24,8 +24,9 @@
       });
       var urlParams = JSON.parse(JSON.stringify(result));
       
+      /* Check if there is a target parameter, and that it's valid Base64 */
       if (urlParams.target !== undefined && base64regex.test(urlParams.target)) {
-        /* Decode the base64 */
+        /* Decode the target parameter from Base64 */
         urlParams.target = window.atob(urlParams.target);
 
         /* Make a POST request with the URL parameters as the body */
@@ -34,12 +35,12 @@
           body: JSON.stringify(urlParams)
         }).then(res => console.log("Request complete! response:", res));
 
-        /* Redirect the user to target */
+        /* Redirect the user to the specified target */
         console.log("Redirecting to: " + urlParams.target + queryString);
         window.location.replace(urlParams.target + queryString);
       } else {
-        /* If redirect location isn't found, bring to homepage */
-        window.location.replace("https://comeuntochristchicago.org" + queryString);
+        /* If a redirect location isn't found, send users to the missionary visit page */
+        window.location.replace("https://comeuntochristchicago.org/meet-with-missionaries" + queryString);
       }
     }
   </script>
